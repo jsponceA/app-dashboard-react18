@@ -1,0 +1,13 @@
+@import "bootstrap/scss/bootstrap";
+
+body {
+    font-family: 'Fjalla One', sans-serif;
+    font-family: 'Inter', sans-serif;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
