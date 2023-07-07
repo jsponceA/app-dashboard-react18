@@ -14,9 +14,9 @@ const Login = () => {
   return (
     <div className="container-fluid vh-100 bg-light-subtle">
       <div className="row d-flex justify-content-center align-content-center h-100">
-        <div className="col-md-4">
+        <div className="col-md-6 col-lg-4 col-xl-3">
           <div className="card border-light-subtle shadow-lg">
-            <div className="card-header border-light-subtle">
+            <div className="card-header border-light-subtle bg-white">
               <p className="fs-5 fw-bold mb-0 text-center">
                 <i className="bx bx-user"></i> INICIO DE SESIÓN
               </p>

@@ -1,5 +1,5 @@
 import Header from "../components/Header";
-import Sidedar from "../components/Sidedar";
+import Sidebar from "../components/Sidebar";
 import Footer from "../components/Footer";
 import { Outlet } from "react-router-dom";
 
@@ -7,7 +7,7 @@ const Template = () => {
   return (
     <>
       <Header />
-      <Sidedar />
+      <Sidebar />
       <main>
         <Outlet />
       </main>

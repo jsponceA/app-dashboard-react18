@@ -4,7 +4,7 @@ const Header = () => {
   const { loadingLogout, errorsLogout, handleLogout } = useLogout();
 
   return (
-    <header className="py-2 mb-3 border-bottom bg-secondary-subtle">
+    <header className="py-2 mb-3 border-bottom bg-secondary bg-opacity-25">
       <div className="container-fluid">
         <div className="d-flex align-items-center">
           <button
@@ -17,7 +17,7 @@ const Header = () => {
             <i className="bx bx-menu bx-xs "></i>
           </button>
           <div className="content-logo text-center">
-            <img style={{ width: "50px" }} src="./vite.svg" alt="vite.svg" />
+            <img style={{ width: "40px" }} src="./vite.svg" alt="vite.svg" />
             <span className="fw-bold">{import.meta.env.VITE_APP_NAME}</span>
           </div>
           <div className="flex-shrink-0  ms-auto dropdown">

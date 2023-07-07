@@ -1,6 +1,21 @@
+import { useEffect, useRef } from "react";
+import { Offcanvas } from "bootstrap";
+import { Link } from "react-router-dom";
+
 const Sidedar = () => {
+  const sidebar = useRef(null);
+
+  useEffect(() => {
+    const bsOffcanvas = new Offcanvas("#sideBarOffCanvas");
+    bsOffcanvas.show();
+    return () => {
+      bsOffcanvas.hide();
+    };
+  }, []);
+
   return (
     <div
+      ref={sidebar}
       className="offcanvas offcanvas-start text-bg-dark"
       tabIndex="-1"
       id="sideBarOffCanvas"
@@ -34,16 +49,20 @@ const Sidedar = () => {
           <hr />
           <ul className="nav nav-pills flex-column mb-auto">
             <li className="nav-item">
-              <a href="#" className="nav-link active" aria-current="page">
+              <Link
+                to={"/home"}
+                className="nav-link active"
+                aria-current="page"
+              >
                 <i className="bx bx-home "></i>
                 Home
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="nav-link text-white">
+              <Link to={"/users"} className="nav-link text-white">
                 <i className="bx bx-group"></i>
                 Users
-              </a>
+              </Link>
             </li>
             <li>
               <a href="#" className="nav-link text-white">
