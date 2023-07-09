@@ -9,15 +9,16 @@ const Header = () => {
         <div className="d-flex align-items-center">
           <button
             className="btn btn-outline-secondary me-3"
-            title="Abrir Menu"
+            data-tooltip-id="my-tooltip"
+            data-tooltip-content="Abrir Menu"
             data-bs-toggle="offcanvas"
             data-bs-target="#sideBarOffCanvas"
             aria-controls="sideBarOffCanvas"
           >
-            <i className="bx bx-menu bx-xs "></i>
+            <i className="bx bx-menu" style={{ fontSize: "25px" }}></i>
           </button>
           <div className="content-logo text-center">
-            <img style={{ width: "40px" }} src="./vite.svg" alt="vite.svg" />
+            <img style={{ width: "40px" }} src="/vite.svg" alt="vite.svg" />
             <span className="fw-bold">{import.meta.env.VITE_APP_NAME}</span>
           </div>
           <div className="flex-shrink-0  ms-auto dropdown">

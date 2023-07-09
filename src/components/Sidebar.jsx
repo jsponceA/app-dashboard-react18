@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Offcanvas } from "bootstrap";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Sidedar = () => {
   const sidebar = useRef(null);
@@ -49,38 +49,26 @@ const Sidedar = () => {
           <hr />
           <ul className="nav nav-pills flex-column mb-auto">
             <li className="nav-item">
-              <Link
+              <NavLink
                 to={"/home"}
-                className="nav-link active"
+                className="nav-link text-white"
                 aria-current="page"
               >
                 <i className="bx bx-home "></i>
                 Home
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to={"/users"} className="nav-link text-white">
+              <NavLink to={"/tasks"} className="nav-link text-white">
+                <i className="bx bx-task"></i>
+                My Taks
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to={"/users"} className="nav-link text-white">
                 <i className="bx bx-group"></i>
-                Users
-              </Link>
-            </li>
-            <li>
-              <a href="#" className="nav-link text-white">
-                <i className="bx bxs-dashboard "></i>
-                Dashboard
-              </a>
-            </li>
-            <li>
-              <a href="#" className="nav-link text-white">
-                <i className="bx bx-package "></i>
-                Orders
-              </a>
-            </li>
-            <li>
-              <a href="#" className="nav-link text-white">
-                <i className="bx bxs-backpack"></i>
-                Products
-              </a>
+                Users <span className="badge text-bg-success">Incoming</span>
+              </NavLink>
             </li>
           </ul>
         </div>

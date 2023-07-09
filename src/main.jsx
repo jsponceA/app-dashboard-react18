@@ -15,10 +15,16 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 /* END TOAST */
 
+/* REACT TOOLTIP */
+import "react-tooltip/dist/react-tooltip.css";
+import { Tooltip } from "react-tooltip";
+/* REACT TOOLTIP */
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
+        <Tooltip id="my-tooltip" className="z-1" />
         <ToastContainer position="top-right" autoClose={3500} pauseOnHover />
         <App />
       </PersistGate>

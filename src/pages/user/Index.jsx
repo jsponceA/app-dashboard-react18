@@ -1,6 +1,18 @@
 import { Link } from "react-router-dom";
+import useUserIndex from "../../hooks/user/useUserIndex";
+import { useEffect } from "react";
 
 const UserIndex = () => {
+  const { getListUsers, users } = useUserIndex();
+
+  const fetchIniatlData = async () => {
+    await getListUsers();
+  };
+
+  useEffect(() => {
+    fetchIniatlData();
+  }, []);
+
   return (
     <div className="container-fluid">
       <div className="row">
@@ -28,14 +40,16 @@ const UserIndex = () => {
                 <div className="col-md-12 d-flex mb-3">
                   <div className="me-auto">
                     <button
+                      data-tooltip-id="my-tooltip"
+                      data-tooltip-content="GENERAR REPORTE EN PDF"
                       className="btn btn-danger mx-1"
-                      title="GENERAR REPORTE EN PDF"
                     >
                       <i className="bx bxs-file-pdf bx-sm"></i>
                     </button>
                     <button
+                      data-tooltip-id="my-tooltip"
+                      data-tooltip-content="GENERAR REPORTE EN EXCEL"
                       className="btn btn-success mx-1"
-                      title="GENERAR REPORTE EN EXCEL"
                     >
                       <i className="bx bxs-file-doc bx-sm"></i>
                     </button>
@@ -45,19 +59,19 @@ const UserIndex = () => {
                   </button>
                 </div>
                 <div className="col-md-12 mb-2">
-                  <div class="input-group">
-                    <span class="input-group-text border-primary-subtle border-2">
+                  <div className="input-group">
+                    <span className="input-group-text border-primary-subtle border-2">
                       <i className="bx bx-search"></i>
                     </span>
                     <input
                       type="text"
-                      class="form-control border-primary-subtle border-2"
+                      className="form-control border-primary-subtle border-2"
                       placeholder="Buscar registro..."
                     />
                   </div>
                 </div>
                 <div className="col-md-1 mb-1">
-                  <select class="form-select form-select-sm">
+                  <select className="form-select form-select-sm">
                     <option value="10">10</option>
                     <option value="50">50</option>
                     <option value="100">100</option>
@@ -72,31 +86,26 @@ const UserIndex = () => {
                       </caption>
                       <thead className="table-light">
                         <tr>
-                          <th scope="col">#</th>
-                          <th scope="col">First</th>
-                          <th scope="col">Last</th>
-                          <th scope="col">Handle</th>
+                          <th>#ID</th>
+                          <th>Title</th>
+                          <th>Description</th>
+                          <th>Completed</th>
+                          <th>Created at</th>
+                          <th>Updated at</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <th scope="row">1</th>
-                          <td>Mark</td>
-                          <td>Otto</td>
-                          <td>@mdo</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">2</th>
-                          <td>Jacob</td>
-                          <td>Thornton</td>
-                          <td>@fat</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">3</th>
-                          <td>Larry</td>
-                          <td>the Bird</td>
-                          <td>@twitter</td>
-                        </tr>
+                        {users &&
+                          users.map((user) => (
+                            <tr key={user.id}>
+                              <td>{user.id}</td>
+                              <td>{user.id}</td>
+                              <td>{user.id}</td>
+                              <td>{user.id}</td>
+                              <td>{user.id}</td>
+                              <td>{user.id}</td>
+                            </tr>
+                          ))}
                       </tbody>
                     </table>
                   </div>
