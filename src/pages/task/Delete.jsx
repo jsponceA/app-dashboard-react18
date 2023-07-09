@@ -35,7 +35,7 @@ const TaskDelete = ({ openModal, setOpenModal, id, getListTasks }) => {
         <div className="modal-content">
           <div className="modal-header">
             <h1 className="modal-title fs-5" id="modalDeleteTaskLabel">
-              Confirmación de eliminación de tarea
+              Confirmación de eliminación
             </h1>
             <button
               onClick={() => setOpenModal(false)}
@@ -50,7 +50,7 @@ const TaskDelete = ({ openModal, setOpenModal, id, getListTasks }) => {
                 <p>
                   ¿Esta seguro que desea{" "}
                   <span className="text-danger fw-bold">eliminar</span> esta
-                  tareka?
+                  tarea?
                 </p>
               </div>
             </div>
