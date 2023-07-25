@@ -1,32 +1,32 @@
 import { Link } from "react-router-dom";
-import useIndexTask from "../../hooks/task/useIndexTask";
-import TaskDelete from "./Delete";
+import useIndexCategory from "../../hooks/category/useIndexCategory";
+import CategoryDelete from "./Delete";
 import SpinnerLoader from "../../components/SpinnerLoader";
 import ReactPaginateBootstrap5 from "../../components/ReactPaginateBootstrap5";
 import dayjs from "dayjs";
 
-const TaskIndex = () => {
+const CategoryIndex = () => {
   const {
-    getListTasks,
-    tasks,
-    handleChangeFiltersTask,
-    infoPaginationTasks,
-    isLoadingTasks,
-    modalDeleteTask,
-    setModalDeleteTask,
-    idTaskProp,
+    getListCategories,
+    categories,
+    handleChangeFiltersCategory,
+    infoPaginationCategories,
+    isLoadingCategories,
+    modalDeleteCategory,
+    setModalDeleteCategory,
+    idCategoryProp,
     handleKeyInputFilter,
     handlePageClick,
     openModalDelete,
-  } = useIndexTask();
+  } = useIndexCategory();
 
   return (
     <div className="container-fluid">
-      <TaskDelete
-        openModal={modalDeleteTask}
-        setOpenModal={setModalDeleteTask}
-        getListTasks={getListTasks}
-        id={idTaskProp}
+      <CategoryDelete
+        openModal={modalDeleteCategory}
+        setOpenModal={setModalDeleteCategory}
+        getListCategories={getListCategories}
+        id={idCategoryProp}
       />
       <div className="row">
         <div className="col-md-12">
@@ -35,7 +35,7 @@ const TaskIndex = () => {
               <Link to={"/home"}>Inicio</Link>
             </li>
             <li className="breadcrumb-item active" aria-current="page">
-              Tareas
+              Categorias
             </li>
           </ol>
         </div>
@@ -45,7 +45,7 @@ const TaskIndex = () => {
           <div className="card border-0 shadow-lg ">
             <div className="card-header bg-primary bg-opacity-75 text-white">
               <p className="my-0 text-center fw-bold fs-5">
-                <i className="bx bx-task bx-sm"></i> TAREAS
+                <i className="bx bx-category bx-sm"></i> CATEGORIAS
               </p>
             </div>
             <div className="card-body">
@@ -68,23 +68,23 @@ const TaskIndex = () => {
                     </button>
                   </div>
                   <Link
-                    to={"/tasks/create"}
+                    to={"/categories/create"}
                     className="btn btn-primary d-flex align-items-center"
                   >
-                    <i className="bx bx-plus bx-sm"></i> AGREGAR TAREA
+                    <i className="bx bx-plus bx-sm"></i> AGREGAR CATEGORIA
                   </Link>
                 </div>
                 <div className="col-md-12 mb-2">
                   <div className="input-group">
                     <span
-                      onClick={() => getListTasks()}
+                      onClick={() => getListCategories()}
                       className="input-group-text border-primary-subtle border-2"
                       style={{ cursor: "pointer" }}
                     >
                       <i className="bx bx-search"></i>
                     </span>
                     <input
-                      onChange={handleChangeFiltersTask}
+                      onChange={handleChangeFiltersCategory}
                       onKeyDown={handleKeyInputFilter}
                       type="text"
                       name="search"
@@ -95,7 +95,7 @@ const TaskIndex = () => {
                 </div>
                 <div className="col-md-1 mb-1">
                   <select
-                    onChange={handleChangeFiltersTask}
+                    onChange={handleChangeFiltersCategory}
                     name="perPage"
                     className="form-select form-select-sm border-secondary"
                   >
@@ -108,7 +108,7 @@ const TaskIndex = () => {
 
                 <div className="col-md-12">
                   <div className="table-responsive position-relative">
-                    {isLoadingTasks && (
+                    {isLoadingCategories && (
                       <div
                         className="position-absolute"
                         style={{ top: "30%", left: "45%" }}
@@ -120,19 +120,15 @@ const TaskIndex = () => {
                       <thead>
                         <tr className="text-nowrap">
                           <td className="text-center">ACCIONES</td>
-                          <td>USUARIO</td>
                           <td>CATEGORIA</td>
-                          <td>TITLE</td>
                           <td>DESCRIPCIÓN</td>
-                          <td>ESTADO</td>
-                          <td>ETIQUETAS</td>
                           <td>FECHA CREACIÓN</td>
                           <td>FECHA MODIFICACIÓN</td>
                         </tr>
                       </thead>
                       <tbody>
-                        {tasks.map((task) => (
-                          <tr key={task.id}>
+                        {categories.map((category) => (
+                          <tr key={category.id}>
                             <td className="text-center">
                               <div className="dropdown open">
                                 <button
@@ -147,13 +143,13 @@ const TaskIndex = () => {
                                 </button>
                                 <div className="dropdown-menu">
                                   <Link
-                                    to={`/tasks/edit/${task.id}`}
+                                    to={`/categories/edit/${category.id}`}
                                     className="dropdown-item"
                                   >
                                     <i className="bx bx-edit"></i> Editar
                                   </Link>
                                   <button
-                                    onClick={() => openModalDelete(task.id)}
+                                    onClick={() => openModalDelete(category.id)}
                                     type="button"
                                     className="dropdown-item"
                                   >
@@ -162,40 +158,15 @@ const TaskIndex = () => {
                                 </div>
                               </div>
                             </td>
-                            <td>{task.user.username}</td>
-                            <td>{task.category.name}</td>
-                            <td>{task.title}</td>
-                            <td>{task.description}</td>
+                            <td>{category.name}</td>
+                            <td>{category.description}</td>
                             <td>
-                              <span
-                                className={`badge bg-${
-                                  task.completed ? "success" : "danger"
-                                }`}
-                              >
-                                {task.completed
-                                  ? "COMPLETADO"
-                                  : "NO COMPLETADO"}
-                              </span>
+                              {category.created_at &&
+                                dayjs(category.created_at).format("DD/MM/YYYY")}
                             </td>
                             <td>
-                              {task.tags.map((tag) => (
-                                <span
-                                  key={tag.id}
-                                  className="badge text-dark me-1"
-                                  style={{ backgroundColor: tag.bg_color }}
-                                >
-                                  {tag.name}
-                                </span>
-                              ))}
-                            </td>
-
-                            <td>
-                              {task.created_at &&
-                                dayjs(task.created_at).format("DD/MM/YYYY")}
-                            </td>
-                            <td>
-                              {task.updated_at &&
-                                dayjs(task.updated_at).format("DD/MM/YYYY")}
+                              {category.updated_at &&
+                                dayjs(category.updated_at).format("DD/MM/YYYY")}
                             </td>
                           </tr>
                         ))}
@@ -203,12 +174,8 @@ const TaskIndex = () => {
                       <tfoot>
                         <tr className="text-nowrap">
                           <td className="text-center">ACCIONES</td>
-                          <td>USUARIO</td>
                           <td>CATEGORIA</td>
-                          <td>TITLE</td>
-                          <td>DESCRIPCIÓN</td>
-                          <td>ESTADO</td>
-                          <td>ETIQUETAS</td>
+                          <td>CORREO</td>
                           <td>FECHA CREACIÓN</td>
                           <td>FECHA MODIFICACIÓN</td>
                         </tr>
@@ -218,16 +185,16 @@ const TaskIndex = () => {
                   <div className="d-flex flex-md-row flex-column">
                     <p className="my-0">
                       {`Mostrando del registro
-                        ${infoPaginationTasks.firstRegister} al
-                        ${infoPaginationTasks.lastRegister} de un total de
-                        ${infoPaginationTasks.totalRegisters} filas`}
+                        ${infoPaginationCategories.firstRegister} al
+                        ${infoPaginationCategories.lastRegister} de un total de
+                        ${infoPaginationCategories.totalRegisters} filas`}
                     </p>
                     <div className="ms-auto">
                       <ReactPaginateBootstrap5
                         onPageChange={handlePageClick}
                         pageRangeDisplayed={3}
                         marginPagesDisplayed={2}
-                        pageCount={infoPaginationTasks.totalPages}
+                        pageCount={infoPaginationCategories.totalPages}
                         renderOnZeroPageCount={null}
                       />
                     </div>
@@ -242,4 +209,4 @@ const TaskIndex = () => {
   );
 };
 
-export default TaskIndex;
+export default CategoryIndex;

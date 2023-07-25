@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="mt-auto border-top bg-secondary bg-opacity-25">
+    <footer className="mt-auto bg-secondary bg-opacity-25">
       <p className="text-center my-0">Desarrollado por JPonce</p>
       <hr className="border-secondary-subtle my-1" />
       <p className="text-secondary text-center my-0">

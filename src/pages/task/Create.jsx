@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import useTaskCreate from "../../hooks/task/useTaskCreate";
+import useCreateTask from "../../hooks/task/useCreateTask";
+import Select from "react-select";
 
 const TaskCreate = () => {
   const {
@@ -9,7 +10,12 @@ const TaskCreate = () => {
     loadSubmitFormTask,
     setErrorsTask,
     errorsTask,
-  } = useTaskCreate();
+    categories,
+    users,
+    tags,
+    loadInitialData,
+    setTask,
+  } = useCreateTask();
   return (
     <div className="container-fluid">
       <div className="row">
@@ -90,15 +96,62 @@ const TaskCreate = () => {
                         ></button>
                         <ul className="my-0">
                           {errorsTask.map((error) => (
-                            <li key={error.path}>{error.msg}</li>
+                            <li key={error.msg}>{error.msg}</li>
                           ))}
                         </ul>
                       </div>
                     </div>
                   )}
+                  <div className="col-md-6 mb-3">
+                    <label htmlFor="user_id">
+                      Usuario: <span className="text-danger">(*)</span>
+                    </label>
 
+                    <Select
+                      onChange={(value) =>
+                        setTask({ ...task, user_id: value.id })
+                      }
+                      options={users}
+                      getOptionLabel={(option) => `${option.username}`}
+                      getOptionValue={(option) => `${option.id}`}
+                      placeholder="[--Seleccione Usuario--]"
+                      name="user_id"
+                      id="user_id"
+                      classNames={{
+                        control: (state) =>
+                          state.isFocused
+                            ? "border-secondary"
+                            : "border-secondary",
+                      }}
+                    />
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <label htmlFor="category_id">
+                      Categoria: <span className="text-danger">(*)</span>
+                    </label>
+
+                    <Select
+                      onChange={(value) =>
+                        setTask({ ...task, category_id: value.id })
+                      }
+                      options={categories}
+                      getOptionLabel={(option) => `${option.name}`}
+                      getOptionValue={(option) => `${option.id}`}
+                      name="category_id"
+                      id="category_id"
+                      classNames={{
+                        control: (state) =>
+                          state.isFocused
+                            ? "border-secondary"
+                            : "border-secondary",
+                      }}
+                      placeholder="[--Seleccione Categoria--]"
+                    />
+                  </div>
                   <div className="col-md-8">
-                    <label htmlFor="title">Titulo:</label>
+                    <label htmlFor="title">
+                      Titulo: <span className="text-danger">(*)</span>
+                    </label>
                     <div className="input-group input-group-sm  mb-3">
                       <span className="input-group-text border-secondary">
                         <i className="bx bx-text bx-sm"></i>
@@ -115,7 +168,9 @@ const TaskCreate = () => {
                     </div>
                   </div>
                   <div className="col-md-4">
-                    <label htmlFor="completed">Estado:</label>
+                    <label htmlFor="completed">
+                      Estado: <span className="text-danger">(*)</span>
+                    </label>
                     <div className="form-check form-switch">
                       <input
                         onChange={handleChangeFormTask}
@@ -138,6 +193,28 @@ const TaskCreate = () => {
                         {task.completed ? "COMPLETADO" : "NO COMPLETADO"}
                       </label>
                     </div>
+                  </div>
+                  <div className="col-md-12 mb-3">
+                    <label htmlFor="tags">Asociar etiquetas:</label>
+
+                    <Select
+                      onChange={(value) =>
+                        setTask({ ...task, tags: value.map((item) => item.id) })
+                      }
+                      options={tags}
+                      getOptionLabel={(option) => `${option.name}`}
+                      getOptionValue={(option) => `${option.id}`}
+                      isMulti
+                      name="tags"
+                      id="tags"
+                      classNames={{
+                        control: (state) =>
+                          state.isFocused
+                            ? "border-secondary"
+                            : "border-secondary",
+                      }}
+                      placeholder="[--Seleccione Etiquetas--]"
+                    />
                   </div>
                   <div className="col-md-12">
                     <label htmlFor="description">Descripción:</label>

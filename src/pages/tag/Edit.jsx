@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
-import useCreateUser from "../../hooks/user/useCreateUser";
+import useEditTag from "../../hooks/tag/useEditTag";
 
-const UserCreate = () => {
+const TagEdit = () => {
   const {
-    saveUser,
-    user,
-    handleChangeFormUser,
-    loadSubmitFormUser,
-    setErrorsUser,
-    errorsUser,
-  } = useCreateUser();
+    updateTag,
+    tag,
+    handleChangeFormTag,
+    loadSubmitFormTag,
+    setErrorsTag,
+    errorsTag,
+  } = useEditTag();
   return (
     <div className="container-fluid">
       <div className="row">
@@ -19,10 +19,10 @@ const UserCreate = () => {
               <Link to={"/home"}>Inicio</Link>
             </li>
             <li className="breadcrumb-item">
-              <Link to={"/users"}>Usuarios</Link>
+              <Link to={"/tags"}>Etiquetas</Link>
             </li>
             <li className="breadcrumb-item active" aria-current="page">
-              Crear Usuario
+              Editar Etiqueta
             </li>
           </ol>
         </div>
@@ -32,30 +32,30 @@ const UserCreate = () => {
           <div className="card border-0 shadow-lg ">
             <div className="card-header bg-primary bg-opacity-75 text-white">
               <p className="my-0 text-center fw-bold fs-5">
-                <i className="bx bx-user bx-sm"></i> REGISTRAR NUEVO USUARIO
+                <i className="bx bx-tag bx-sm"></i> EDITAR ETIQUETA
               </p>
             </div>
             <div className="card-body">
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
-                  saveUser();
+                  updateTag();
                 }}
               >
                 <div className="row">
                   <div className="col-md-12 d-flex mb-3">
                     <Link
-                      to={"/users"}
+                      to={"/tags"}
                       className="btn btn-outline-danger d-flex justify-content-center"
                     >
                       <i className="bx bx-arrow-back bx-sm"></i> CANCELAR
                     </Link>
-                    {!loadSubmitFormUser ? (
+                    {!loadSubmitFormTag ? (
                       <button
                         type="submit"
                         className="btn bg-success bg-gradient text-white ms-auto d-flex justify-content-center"
                       >
-                        <i className="bx bx-save bx-sm"></i> GUARDAR
+                        <i className="bx bx-save bx-sm"></i> MODIFICAR
                       </button>
                     ) : (
                       <button
@@ -73,7 +73,7 @@ const UserCreate = () => {
                     )}
                   </div>
 
-                  {errorsUser.length > 0 && (
+                  {errorsTag.length > 0 && (
                     <div className="col-md-12">
                       <div
                         className="alert alert-danger alert-dismissible fade show"
@@ -82,14 +82,14 @@ const UserCreate = () => {
                         <button
                           onClick={(e) => {
                             e.preventDefault();
-                            setErrorsUser([]);
+                            setErrorsTag([]);
                           }}
                           type="button"
                           className="btn-close"
                           aria-label="Close"
                         ></button>
                         <ul className="my-0">
-                          {errorsUser.map((error) => (
+                          {errorsTag.map((error) => (
                             <li key={error.msg}>{error.msg}</li>
                           ))}
                         </ul>
@@ -98,62 +98,59 @@ const UserCreate = () => {
                   )}
 
                   <div className="col-md-6">
-                    <label htmlFor="username">
-                      Usuario <span className="text-danger">(*)</span>
+                    <label htmlFor="name">
+                      Etiqueta <span className="text-danger">(*)</span>
                     </label>
                     <div className="input-group input-group-sm  mb-3">
                       <span className="input-group-text border-secondary">
-                        <i className="bx bx-user bx-sm"></i>
+                        <i className="bx bx-tag bx-sm"></i>
                       </span>
                       <input
-                        onChange={handleChangeFormUser}
-                        value={user.username}
+                        onChange={handleChangeFormTag}
+                        value={tag.name}
                         type="text"
                         className="form-control border-secondary"
-                        name="username"
-                        id="username"
-                        placeholder="Mi usuario"
+                        name="name"
+                        id="name"
+                        placeholder="Mi etiqueta"
                       />
                     </div>
                   </div>
 
                   <div className="col-md-6">
-                    <label htmlFor="password">
-                      Contraseña <span className="text-danger">(*)</span>
+                    <label htmlFor="bg_color">
+                      Color <span className="text-danger">(*)</span>
                     </label>
                     <div className="input-group input-group-sm  mb-3">
                       <span className="input-group-text border-secondary">
-                        <i className="bx bx-lock bx-sm"></i>
+                        <i className="bx bx-color bx-sm"></i>
                       </span>
                       <input
-                        onChange={handleChangeFormUser}
-                        value={user.password}
-                        type="password"
-                        className="form-control border-secondary"
-                        name="password"
-                        id="password"
-                        placeholder="Mi usuario"
+                        onChange={handleChangeFormTag}
+                        value={tag.bg_color}
+                        type="color"
+                        className="form-control form-control-color border-secondary"
+                        name="bg_color"
+                        id="bg_color"
                       />
                     </div>
                   </div>
 
-                  <div className="col-md-6">
-                    <label htmlFor="email">
-                      Correo <span className="text-danger">(*)</span>
-                    </label>
+                  <div className="col-md-12">
+                    <label htmlFor="description">Descripción</label>
                     <div className="input-group input-group-sm  mb-3">
                       <span className="input-group-text border-secondary">
-                        <i className="bx bx-envelope bx-sm"></i>
+                        <i className="bx bx-text bx-sm"></i>
                       </span>
-                      <input
-                        onChange={handleChangeFormUser}
-                        value={user.email}
-                        type="email"
+                      <textarea
+                        rows={2}
+                        onChange={handleChangeFormTag}
+                        value={tag.description}
                         className="form-control border-secondary"
-                        name="email"
-                        id="email"
-                        placeholder="Ejemplo@tucorreo.com"
-                      />
+                        name="description"
+                        id="description"
+                        placeholder="....."
+                      ></textarea>
                     </div>
                   </div>
                 </div>
@@ -166,4 +163,4 @@ const UserCreate = () => {
   );
 };
 
-export default UserCreate;
+export default TagEdit;

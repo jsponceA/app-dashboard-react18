@@ -1,35 +1,53 @@
 import { useState } from "react";
 import { updateTaskService, getOneTaskService } from "../../services/task";
+import { getListCategoriesService } from "../../services/category";
+import { getListUsersService } from "../../services/user";
+import { getListTagsService } from "../../services/tag";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 
 const useTaskEdit = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [task, setTask] = useState({
+    user_id: "",
+    category_id: "",
     title: "",
     description: "",
     completed: false,
+    tags: [],
   });
+  const [categories, setCategories] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [tags, setTags] = useState([]);
   const [errorsTask, setErrorsTask] = useState([]);
   const [loadSubmitFormTask, setLoadSubmitFormTask] = useState(false);
-  const [loadDataTask, setLoadDataTask] = useState(true);
+  const [loadInitialData, setLoadInitialData] = useState(false);
 
-  const getOneTask = async () => {
+  const fetchInitialData = async () => {
     try {
-      setLoadDataTask(true);
-      const {
-        data: { task: responseTask },
-      } = await getOneTaskService(id);
+      setLoadInitialData(true);
 
-      delete responseTask.created_at;
-      delete responseTask.updated_at;
-      setTask(responseTask);
+      const {
+        data: { task: dataTask },
+      } = await getOneTaskService(id);
+      const resCategories = await getListCategoriesService();
+      const resUsers = await getListUsersService();
+      const resTags = await getListTagsService();
+      setCategories(resCategories.data.categories.data);
+      setUsers(resUsers.data.users.data);
+      setTags(resTags.data.tags.data);
+
+      Object.keys(task).forEach((key) => {
+        setTask((prev) => ({ ...prev, [key]: dataTask[key] }));
+      });
     } catch (error) {
+      toast.error("Error al obtener el recurso");
       console.log(error);
     } finally {
-      setLoadDataTask(false);
+      setLoadInitialData(false);
     }
   };
 
@@ -37,6 +55,7 @@ const useTaskEdit = () => {
     try {
       setLoadSubmitFormTask(true);
       setErrorsTask([]);
+
       const {
         data: { message },
       } = await updateTaskService(id, task);
@@ -48,6 +67,7 @@ const useTaskEdit = () => {
         setErrorsTask(data.errors);
         toast.error("Errores de validación");
       } else {
+        toast.error("Error al modificar el recurso");
         console.log(error);
       }
     } finally {
@@ -56,23 +76,29 @@ const useTaskEdit = () => {
   };
 
   const handleChangeFormTask = (e) => {
-    const { type, name, value, checked } = e.target;
+    const { name, type, value, checked } = e.target;
     if (type === "checkbox") {
       setTask((prev) => ({ ...prev, [name]: checked }));
     } else {
       setTask((prev) => ({ ...prev, [name]: value }));
     }
   };
+  useEffect(() => {
+    fetchInitialData();
+  }, []);
 
   return {
-    getOneTask,
     updateTask,
     task,
     handleChangeFormTask,
     loadSubmitFormTask,
     setErrorsTask,
     errorsTask,
-    loadDataTask,
+    categories,
+    users,
+    tags,
+    loadInitialData,
+    setTask,
   };
 };
 

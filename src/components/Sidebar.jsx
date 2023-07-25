@@ -55,19 +55,31 @@ const Sidedar = () => {
                 aria-current="page"
               >
                 <i className="bx bx-home "></i>
-                Home
+                Inicio
               </NavLink>
             </li>
             <li>
-              <NavLink to={"/tasks"} className="nav-link text-white">
-                <i className="bx bx-task"></i>
-                My Taks
+              <NavLink to={"/categories"} className="nav-link text-white">
+                <i className="bx bx-category"></i>
+                Categorias
               </NavLink>
             </li>
             <li>
               <NavLink to={"/users"} className="nav-link text-white">
                 <i className="bx bx-group"></i>
-                Users <span className="badge text-bg-success">Incoming</span>
+                Usuarios
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to={"/tags"} className="nav-link text-white">
+                <i className="bx bx-tag"></i>
+                Etiquetas
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to={"/tasks"} className="nav-link text-white">
+                <i className="bx bx-task"></i>
+                Mis tareas
               </NavLink>
             </li>
           </ul>

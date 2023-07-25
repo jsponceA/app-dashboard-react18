@@ -1,25 +1,25 @@
-import useDeleteTask from "../../hooks/task/useDeleteTask";
+import useDeleteUser from "../../hooks/user/useDeleteUser";
 
-const TaskDelete = ({ openModal, setOpenModal, id, getListTasks }) => {
-  const { loadTaskDelete, onClickDeleteTask } = useDeleteTask(
+const UserDelete = ({ openModal, setOpenModal, id, getListUsers }) => {
+  const { loadUserDelete, onClickDeleteUser } = useDeleteUser(
     openModal,
     setOpenModal,
     id,
-    getListTasks
+    getListUsers
   );
 
   return (
     <div
       className="modal fade"
-      id="modalDeleteTask"
+      id="modalDeleteUser"
       tabIndex="-1"
-      aria-labelledby="modalDeleteTaskLabel"
+      aria-labelledby="modalDeleteUserLabel"
       aria-hidden="true"
     >
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content">
           <div className="modal-header">
-            <h1 className="modal-title fs-5" id="modalDeleteTaskLabel">
+            <h1 className="modal-title fs-5" id="modalDeleteUserLabel">
               Confirmación de eliminación
             </h1>
             <button
@@ -35,7 +35,7 @@ const TaskDelete = ({ openModal, setOpenModal, id, getListTasks }) => {
                 <p>
                   ¿Esta seguro que desea{" "}
                   <span className="text-danger fw-bold">eliminar</span> este
-                  tarea?
+                  usuario?
                 </p>
               </div>
             </div>
@@ -48,9 +48,9 @@ const TaskDelete = ({ openModal, setOpenModal, id, getListTasks }) => {
             >
               <i className="bx bx-x"></i> Cancelar
             </button>
-            {!loadTaskDelete ? (
+            {!loadUserDelete ? (
               <button
-                onClick={onClickDeleteTask}
+                onClick={onClickDeleteUser}
                 type="button"
                 className="btn bg-success bg-gradient text-white"
               >
@@ -77,4 +77,4 @@ const TaskDelete = ({ openModal, setOpenModal, id, getListTasks }) => {
   );
 };
 
-export default TaskDelete;
+export default UserDelete;

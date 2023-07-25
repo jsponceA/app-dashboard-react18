@@ -11,3 +11,18 @@ body {
     flex-direction: column;
     height: 100vh;
 }
+
+.custom-table {
+    font-size: 14px;
+
+    thead,
+    tfoot {
+        tr td {
+            background-color: rgba(var(--bs-secondary-rgb), 1);
+            background-image: var(--bs-gradient);
+            font-weight: bold;
+            color: white;
+        }
+    }
+
+}

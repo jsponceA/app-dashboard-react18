@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
-import useCreateUser from "../../hooks/user/useCreateUser";
+import useEditUser from "../../hooks/user/useEditUser";
 
-const UserCreate = () => {
+const UserEdit = () => {
   const {
-    saveUser,
+    updateUser,
     user,
     handleChangeFormUser,
     loadSubmitFormUser,
     setErrorsUser,
     errorsUser,
-  } = useCreateUser();
+  } = useEditUser();
   return (
     <div className="container-fluid">
       <div className="row">
@@ -22,7 +22,7 @@ const UserCreate = () => {
               <Link to={"/users"}>Usuarios</Link>
             </li>
             <li className="breadcrumb-item active" aria-current="page">
-              Crear Usuario
+              Editar Usuario
             </li>
           </ol>
         </div>
@@ -32,14 +32,14 @@ const UserCreate = () => {
           <div className="card border-0 shadow-lg ">
             <div className="card-header bg-primary bg-opacity-75 text-white">
               <p className="my-0 text-center fw-bold fs-5">
-                <i className="bx bx-user bx-sm"></i> REGISTRAR NUEVO USUARIO
+                <i className="bx bx-user bx-sm"></i> EDITAR USUARIO
               </p>
             </div>
             <div className="card-body">
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
-                  saveUser();
+                  updateUser();
                 }}
               >
                 <div className="row">
@@ -55,7 +55,7 @@ const UserCreate = () => {
                         type="submit"
                         className="btn bg-success bg-gradient text-white ms-auto d-flex justify-content-center"
                       >
-                        <i className="bx bx-save bx-sm"></i> GUARDAR
+                        <i className="bx bx-save bx-sm"></i> MODIFICAR
                       </button>
                     ) : (
                       <button
@@ -118,9 +118,7 @@ const UserCreate = () => {
                   </div>
 
                   <div className="col-md-6">
-                    <label htmlFor="password">
-                      Contraseña <span className="text-danger">(*)</span>
-                    </label>
+                    <label htmlFor="password">Contraseña</label>
                     <div className="input-group input-group-sm  mb-3">
                       <span className="input-group-text border-secondary">
                         <i className="bx bx-lock bx-sm"></i>
@@ -166,4 +164,4 @@ const UserCreate = () => {
   );
 };
 
-export default UserCreate;
+export default UserEdit;

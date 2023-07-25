@@ -25,7 +25,12 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <Tooltip id="my-tooltip" className="z-1" />
-        <ToastContainer position="top-right" autoClose={3500} pauseOnHover />
+        <ToastContainer
+          position="top-right"
+          autoClose={3500}
+          pauseOnHover
+          draggable={false}
+        />
         <App />
       </PersistGate>
     </Provider>

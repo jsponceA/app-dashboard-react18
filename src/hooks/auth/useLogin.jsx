@@ -10,6 +10,7 @@ const useLogin = () => {
     remenber: true,
   });
   const [loadingLogin, setLoadingLogin] = useState(false);
+  const [isVisiblePassword, setIsVisiblePassword] = useState(false);
   const [errorsLogin, setErrorsLogin] = useState([]);
 
   const handleSubmitFormLogin = async (e) => {
@@ -48,6 +49,10 @@ const useLogin = () => {
     }
   };
 
+  const toggleInputPassword = () => {
+    setIsVisiblePassword(!isVisiblePassword);
+  };
+
   return {
     login,
     setLogin,
@@ -56,6 +61,8 @@ const useLogin = () => {
     cleanErrorsLogin,
     handleSubmitFormLogin,
     handleChangeFormLogin,
+    isVisiblePassword,
+    toggleInputPassword,
   };
 };
 

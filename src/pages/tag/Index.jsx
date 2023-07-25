@@ -1,32 +1,32 @@
 import { Link } from "react-router-dom";
-import useIndexTask from "../../hooks/task/useIndexTask";
-import TaskDelete from "./Delete";
+import useIndexTag from "../../hooks/tag/useIndexTag";
+import TagDelete from "./Delete";
 import SpinnerLoader from "../../components/SpinnerLoader";
 import ReactPaginateBootstrap5 from "../../components/ReactPaginateBootstrap5";
 import dayjs from "dayjs";
 
-const TaskIndex = () => {
+const TagIndex = () => {
   const {
-    getListTasks,
-    tasks,
-    handleChangeFiltersTask,
-    infoPaginationTasks,
-    isLoadingTasks,
-    modalDeleteTask,
-    setModalDeleteTask,
-    idTaskProp,
+    getListTags,
+    tags,
+    handleChangeFiltersTag,
+    infoPaginationTags,
+    isLoadingTags,
+    modalDeleteTag,
+    setModalDeleteTag,
+    idTagProp,
     handleKeyInputFilter,
     handlePageClick,
     openModalDelete,
-  } = useIndexTask();
+  } = useIndexTag();
 
   return (
     <div className="container-fluid">
-      <TaskDelete
-        openModal={modalDeleteTask}
-        setOpenModal={setModalDeleteTask}
-        getListTasks={getListTasks}
-        id={idTaskProp}
+      <TagDelete
+        openModal={modalDeleteTag}
+        setOpenModal={setModalDeleteTag}
+        getListTags={getListTags}
+        id={idTagProp}
       />
       <div className="row">
         <div className="col-md-12">
@@ -35,7 +35,7 @@ const TaskIndex = () => {
               <Link to={"/home"}>Inicio</Link>
             </li>
             <li className="breadcrumb-item active" aria-current="page">
-              Tareas
+              Etiquetas
             </li>
           </ol>
         </div>
@@ -45,7 +45,7 @@ const TaskIndex = () => {
           <div className="card border-0 shadow-lg ">
             <div className="card-header bg-primary bg-opacity-75 text-white">
               <p className="my-0 text-center fw-bold fs-5">
-                <i className="bx bx-task bx-sm"></i> TAREAS
+                <i className="bx bx-tag bx-sm"></i> ETIQUETAS
               </p>
             </div>
             <div className="card-body">
@@ -68,23 +68,23 @@ const TaskIndex = () => {
                     </button>
                   </div>
                   <Link
-                    to={"/tasks/create"}
+                    to={"/tags/create"}
                     className="btn btn-primary d-flex align-items-center"
                   >
-                    <i className="bx bx-plus bx-sm"></i> AGREGAR TAREA
+                    <i className="bx bx-plus bx-sm"></i> AGREGAR ETIQUETA
                   </Link>
                 </div>
                 <div className="col-md-12 mb-2">
                   <div className="input-group">
                     <span
-                      onClick={() => getListTasks()}
+                      onClick={() => getListTags()}
                       className="input-group-text border-primary-subtle border-2"
                       style={{ cursor: "pointer" }}
                     >
                       <i className="bx bx-search"></i>
                     </span>
                     <input
-                      onChange={handleChangeFiltersTask}
+                      onChange={handleChangeFiltersTag}
                       onKeyDown={handleKeyInputFilter}
                       type="text"
                       name="search"
@@ -95,7 +95,7 @@ const TaskIndex = () => {
                 </div>
                 <div className="col-md-1 mb-1">
                   <select
-                    onChange={handleChangeFiltersTask}
+                    onChange={handleChangeFiltersTag}
                     name="perPage"
                     className="form-select form-select-sm border-secondary"
                   >
@@ -108,7 +108,7 @@ const TaskIndex = () => {
 
                 <div className="col-md-12">
                   <div className="table-responsive position-relative">
-                    {isLoadingTasks && (
+                    {isLoadingTags && (
                       <div
                         className="position-absolute"
                         style={{ top: "30%", left: "45%" }}
@@ -120,19 +120,16 @@ const TaskIndex = () => {
                       <thead>
                         <tr className="text-nowrap">
                           <td className="text-center">ACCIONES</td>
-                          <td>USUARIO</td>
-                          <td>CATEGORIA</td>
-                          <td>TITLE</td>
+                          <td>ETIQUETA</td>
+                          <td>COLOR</td>
                           <td>DESCRIPCIÓN</td>
-                          <td>ESTADO</td>
-                          <td>ETIQUETAS</td>
                           <td>FECHA CREACIÓN</td>
                           <td>FECHA MODIFICACIÓN</td>
                         </tr>
                       </thead>
                       <tbody>
-                        {tasks.map((task) => (
-                          <tr key={task.id}>
+                        {tags.map((tag) => (
+                          <tr key={tag.id}>
                             <td className="text-center">
                               <div className="dropdown open">
                                 <button
@@ -147,13 +144,13 @@ const TaskIndex = () => {
                                 </button>
                                 <div className="dropdown-menu">
                                   <Link
-                                    to={`/tasks/edit/${task.id}`}
+                                    to={`/tags/edit/${tag.id}`}
                                     className="dropdown-item"
                                   >
                                     <i className="bx bx-edit"></i> Editar
                                   </Link>
                                   <button
-                                    onClick={() => openModalDelete(task.id)}
+                                    onClick={() => openModalDelete(tag.id)}
                                     type="button"
                                     className="dropdown-item"
                                   >
@@ -162,40 +159,23 @@ const TaskIndex = () => {
                                 </div>
                               </div>
                             </td>
-                            <td>{task.user.username}</td>
-                            <td>{task.category.name}</td>
-                            <td>{task.title}</td>
-                            <td>{task.description}</td>
+                            <td>{tag.name}</td>
                             <td>
                               <span
-                                className={`badge bg-${
-                                  task.completed ? "success" : "danger"
-                                }`}
+                                className="badge text-dark"
+                                style={{ backgroundColor: tag.bg_color }}
                               >
-                                {task.completed
-                                  ? "COMPLETADO"
-                                  : "NO COMPLETADO"}
+                                {tag.bg_color}
                               </span>
                             </td>
+                            <td>{tag.description}</td>
                             <td>
-                              {task.tags.map((tag) => (
-                                <span
-                                  key={tag.id}
-                                  className="badge text-dark me-1"
-                                  style={{ backgroundColor: tag.bg_color }}
-                                >
-                                  {tag.name}
-                                </span>
-                              ))}
-                            </td>
-
-                            <td>
-                              {task.created_at &&
-                                dayjs(task.created_at).format("DD/MM/YYYY")}
+                              {tag.created_at &&
+                                dayjs(tag.created_at).format("DD/MM/YYYY")}
                             </td>
                             <td>
-                              {task.updated_at &&
-                                dayjs(task.updated_at).format("DD/MM/YYYY")}
+                              {tag.updated_at &&
+                                dayjs(tag.updated_at).format("DD/MM/YYYY")}
                             </td>
                           </tr>
                         ))}
@@ -203,12 +183,9 @@ const TaskIndex = () => {
                       <tfoot>
                         <tr className="text-nowrap">
                           <td className="text-center">ACCIONES</td>
-                          <td>USUARIO</td>
-                          <td>CATEGORIA</td>
-                          <td>TITLE</td>
+                          <td>ETIQUETA</td>
+                          <td>COLOR</td>
                           <td>DESCRIPCIÓN</td>
-                          <td>ESTADO</td>
-                          <td>ETIQUETAS</td>
                           <td>FECHA CREACIÓN</td>
                           <td>FECHA MODIFICACIÓN</td>
                         </tr>
@@ -218,16 +195,16 @@ const TaskIndex = () => {
                   <div className="d-flex flex-md-row flex-column">
                     <p className="my-0">
                       {`Mostrando del registro
-                        ${infoPaginationTasks.firstRegister} al
-                        ${infoPaginationTasks.lastRegister} de un total de
-                        ${infoPaginationTasks.totalRegisters} filas`}
+                        ${infoPaginationTags.firstRegister} al
+                        ${infoPaginationTags.lastRegister} de un total de
+                        ${infoPaginationTags.totalRegisters} filas`}
                     </p>
                     <div className="ms-auto">
                       <ReactPaginateBootstrap5
                         onPageChange={handlePageClick}
                         pageRangeDisplayed={3}
                         marginPagesDisplayed={2}
-                        pageCount={infoPaginationTasks.totalPages}
+                        pageCount={infoPaginationTags.totalPages}
                         renderOnZeroPageCount={null}
                       />
                     </div>
@@ -242,4 +219,4 @@ const TaskIndex = () => {
   );
 };
 
-export default TaskIndex;
+export default TagIndex;

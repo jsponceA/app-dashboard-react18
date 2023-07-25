@@ -9,6 +9,8 @@ const Login = () => {
     cleanErrorsLogin,
     handleSubmitFormLogin,
     handleChangeFormLogin,
+    isVisiblePassword,
+    toggleInputPassword,
   } = useLogin();
 
   return (
@@ -16,19 +18,22 @@ const Login = () => {
       <div className="row d-flex justify-content-center align-content-center h-100">
         <div className="col-md-6 col-lg-4 col-xl-3">
           <div className="card border-light-subtle shadow-lg">
-            <div className="card-header border-light-subtle bg-white">
-              <p className="fs-5 fw-bold mb-0 text-center">
-                <i className="bx bx-user"></i> INICIO DE SESIÓN
-              </p>
-              <div className="text-center">
-                <img
-                  style={{ width: "150px" }}
-                  src="./vite.svg"
-                  alt="logo_img.svg"
-                />
-              </div>
-            </div>
             <div className="card-body">
+              <div className="row">
+                <div className="col-md-12">
+                  <p className="fs-5 fw-bold mb-0 text-center">
+                    <i className="bx bx-user"></i> INICIO DE SESIÓN
+                  </p>
+                  <div className="text-center">
+                    <img
+                      style={{ width: "150px" }}
+                      src="./vite.svg"
+                      alt="logo_img.svg"
+                    />
+                  </div>
+                  <hr className="border-secondary-subtle" />
+                </div>
+              </div>
               <form onSubmit={handleSubmitFormLogin}>
                 <div className="row">
                   <div className="col-md-12">
@@ -50,14 +55,23 @@ const Login = () => {
                   </div>
                   <div className="col-md-12">
                     <div className="input-group mb-3">
-                      <span className="input-group-text" id="passwordAddon">
-                        <i className="bx bx-show bx-sm"></i>
+                      <span
+                        onClick={toggleInputPassword}
+                        className="input-group-text"
+                        id="passwordAddon"
+                        style={{ cursor: "pointer" }}
+                      >
+                        <i
+                          className={`bx bx-${
+                            isVisiblePassword ? "hide" : "show"
+                          } bx-sm`}
+                        ></i>
                       </span>
                       <input
                         onChange={handleChangeFormLogin}
                         value={login.password}
                         name="password"
-                        type="password"
+                        type={isVisiblePassword ? "text" : "password"}
                         className="form-control"
                         placeholder="*******"
                         aria-label="Password"

@@ -1,25 +1,25 @@
-import useDeleteTask from "../../hooks/task/useDeleteTask";
+import useDeleteCategory from "../../hooks/category/useDeleteCategory";
 
-const TaskDelete = ({ openModal, setOpenModal, id, getListTasks }) => {
-  const { loadTaskDelete, onClickDeleteTask } = useDeleteTask(
+const CategoryDelete = ({ openModal, setOpenModal, id, getListCategories }) => {
+  const { loadCategoryDelete, onClickDeleteCategory } = useDeleteCategory(
     openModal,
     setOpenModal,
     id,
-    getListTasks
+    getListCategories
   );
 
   return (
     <div
       className="modal fade"
-      id="modalDeleteTask"
+      id="modalDeleteCategory"
       tabIndex="-1"
-      aria-labelledby="modalDeleteTaskLabel"
+      aria-labelledby="modalDeleteCategoryLabel"
       aria-hidden="true"
     >
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content">
           <div className="modal-header">
-            <h1 className="modal-title fs-5" id="modalDeleteTaskLabel">
+            <h1 className="modal-title fs-5" id="modalDeleteCategoryLabel">
               Confirmación de eliminación
             </h1>
             <button
@@ -34,8 +34,8 @@ const TaskDelete = ({ openModal, setOpenModal, id, getListTasks }) => {
               <div className="col-md-12">
                 <p>
                   ¿Esta seguro que desea{" "}
-                  <span className="text-danger fw-bold">eliminar</span> este
-                  tarea?
+                  <span className="text-danger fw-bold">eliminar</span> esta
+                  categoria?
                 </p>
               </div>
             </div>
@@ -48,9 +48,9 @@ const TaskDelete = ({ openModal, setOpenModal, id, getListTasks }) => {
             >
               <i className="bx bx-x"></i> Cancelar
             </button>
-            {!loadTaskDelete ? (
+            {!loadCategoryDelete ? (
               <button
-                onClick={onClickDeleteTask}
+                onClick={onClickDeleteCategory}
                 type="button"
                 className="btn bg-success bg-gradient text-white"
               >
@@ -77,4 +77,4 @@ const TaskDelete = ({ openModal, setOpenModal, id, getListTasks }) => {
   );
 };
 
-export default TaskDelete;
+export default CategoryDelete;

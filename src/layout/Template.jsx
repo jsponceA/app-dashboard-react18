@@ -8,7 +8,7 @@ const Template = () => {
     <>
       <Header />
       <Sidebar />
-      <main>
+      <main className="mb-5">
         <Outlet />
       </main>
       <Footer />
